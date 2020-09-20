@@ -20,7 +20,7 @@
 
 ### 将源码上传至路由器
 
-```
+```bash
 scp -r lua_esurfing\ root@10.10.20.1:/root/lua_esurfing
 ```
 
@@ -28,7 +28,7 @@ scp -r lua_esurfing\ root@10.10.20.1:/root/lua_esurfing
 
 > 如果不熟悉linux命令，也可配置后再上传路由器
 
-```
+```lua
 #!/usr/bin/lua
 
 -- 内网ip地址 即WAN口IP
@@ -55,15 +55,27 @@ password='123455'
 ### 启动
 
 
-```
+```bash
 lua start.lua 
 ```
 
 返回下面JSON则认证成功
 
-```
+```json
 {"resinfo":"login success","rescode":"0"}
 ```
+
+### 定时启动
+
+在`/etc/crontabs/root`中添加
+
+```bash
+1 7 * * 6,7 lua /root/lua_esurfing/start.lua >>/root/lua_esurfing/cron.log
+30 7 * * 6,7 lua /root/lua_esurfing/start.lua >>/root/lua_esurfing/cron.log
+1 9 * * 1,2,3,4,5 lua /root/lua_esurfing/start.lua >>/root/lua_esurfing/cron.log
+30 9 * * 1,2,3,4,5 lua /root/lua_esurfing/start.lua >>/root/lua_esurfing/cron.log
+```
+
 
 
 ## 常见问题
@@ -72,7 +84,7 @@ lua start.lua
 
 由于openwrt默认编译并不包括lua-md5，如果出现该报错，需要自行解压项目目录中的`luamd5.tar`库到`/usr/lib/lua`。
 
-```
+```bash
 tar -xf luamd5.tar
 ```
 
@@ -80,7 +92,7 @@ tar -xf luamd5.tar
 
 原因同上
 
-```
+```bash
 opkg install luarocks
 ```
 
