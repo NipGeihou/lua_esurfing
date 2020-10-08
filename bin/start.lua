@@ -1,6 +1,27 @@
 #!/usr/bin/lua
+
 md5 = require "md5"
 json = require "json"
+
+-- ============= config start ==================
+-- wan ip
+clientip = '0.0.0.0'
+
+-- server ip
+nasip = '0.0.0.0'
+
+-- mac
+mac = ''
+
+-- secret code
+secret = 'Eshore!@#'
+
+-- username
+username = ''
+
+-- password
+password = ''
+-- ============= config end ==================
 
 function getVerifyCodeString()
     local timestamp = os.time() * 1000
@@ -81,11 +102,9 @@ function doLogin(vertifyCode)
 end
 
 function main()
-    dofile(config_file)
+    print(os.date("%Y-%m-%d %H:%M"));
     local vertifyCode = getVerifyCodeString()
     doLogin(vertifyCode)
-
 end
 
-config_file = "./conf.lua"
 main()

@@ -6,6 +6,12 @@
     
 项目代码基于未上岸大哥的[【GDDX_Portal Python版】](https://github.com/lililala/GDDX_Portal)重写，感谢开源
 
+## 更新日志
+
+### 2020年10月8日
+
+由于此前的写法，在非`start.lua`所在路径执行`lua /xxxx/xxx/start.lua`会出现找不到导入包、配置的情况，也因此使用定时任务时，出现不起无法认证的情况，为解决这个问题，将需要用到的`md5.lua`、`json.lua`包cp至`/usr/lib/lua`，将原先的`conf.lua`合并到`start.lua`中。
+
 ## 支持院校
 
 测试可用
@@ -24,7 +30,7 @@
 scp -r lua_esurfing\ root@10.10.20.1:/root/lua_esurfing
 ```
 
-### 配置conf.lua
+### 配置bin\start.lua
 
 > 如果不熟悉linux命令，也可配置后再上传路由器
 
@@ -70,10 +76,10 @@ lua start.lua
 在`/etc/crontabs/root`中添加
 
 ```bash
-1 7 * * 6,7 lua /root/lua_esurfing/start.lua >>/root/lua_esurfing/cron.log
-30 7 * * 6,7 lua /root/lua_esurfing/start.lua >>/root/lua_esurfing/cron.log
-1 9 * * 1,2,3,4,5 lua /root/lua_esurfing/start.lua >>/root/lua_esurfing/cron.log
-30 9 * * 1,2,3,4,5 lua /root/lua_esurfing/start.lua >>/root/lua_esurfing/cron.log
+1 7 * * 6,7 lua /root/lua_esurfing/bin/start.lua >>/root/lua_esurfing/cron.log
+30 7 * * 6,7 lua /root/lua_esurfing/bin/start.lua >>/root/lua_esurfing/cron.log
+1 9 * * 1,2,3,4,5 lua /root/lua_esurfing/bin/start.lua >>/root/lua_esurfing/cron.log
+30 9 * * 1,2,3,4,5 lua /root/lua_esurfing/bin/start.lua >>/root/lua_esurfing/cron.log
 ```
 
 
