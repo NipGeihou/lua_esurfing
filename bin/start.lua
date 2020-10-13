@@ -2,10 +2,11 @@
 
 md5 = require "md5"
 json = require "json"
+nixio = require "nixio"
 
 -- ============= config start ==================
--- wan ip
-clientip = '0.0.0.0'
+-- wan ip(Not required)
+clientip = ''
 
 -- server ip
 nasip = '0.0.0.0'
@@ -101,8 +102,17 @@ function doLogin(vertifyCode)
     end
 end
 
+function init()
+    udp = nixio.socket("inet", "dgram")
+    udp:setopt("socket", "reuseaddr", 1)
+    udp:setopt("socket", "rcvtimeo", 10)
+    udp:connect("1.1.1.8", 3850)
+    clientip = udp:getsockname()
+end
+
 function main()
     print(os.date("%Y-%m-%d %H:%M"));
+    init()
     local vertifyCode = getVerifyCodeString()
     doLogin(vertifyCode)
 end
